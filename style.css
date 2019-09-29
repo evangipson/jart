@@ -24,8 +24,7 @@ body {
     border: groove 0.25rem #222;
 }
 .easel {
-    transition: opacity 0.25s linear,
-                background-color 0.25s linear;
+    transition: opacity 0.25s linear;
 }
 .fade-out {
     opacity: 0;

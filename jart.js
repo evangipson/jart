@@ -44,7 +44,7 @@ function randomBrightnessVariation(hexColor, percent = 10) {
        ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
 }
 
-let palletteIndex;
+let palletteIndex; // so we can set the tone of the jart
 function getHexColor() {
     // pallettes curtosey of https://coolors.co
     const possibleColorCombos = [
@@ -149,6 +149,32 @@ function clearPreviousArt() {
     clearAllElements("div");
 }
 
+/**
+ * gives a degree from 0 - 180.
+ */
+function generateRandomDegree() {
+    return getRange(0, 180) + "deg";
+}
+
+/** this can either be a gradient or a solid hex color */
+let gradientIndex = Math.random(); // so we can have a cohesive gradient "feel"
+function generateBackground() {
+    let backgroundCSSRule = getHexColor();
+    if(Math.random() > gradientIndex) {
+        backgroundCSSRule = "radial-gradient(" +
+                            generateRandomDegree() + ", " +
+                            getHexColor() + " " + getRange(-180, -50) + "% , " +
+                            getHexColor() + " " + getRange(50, 180) + "%)";
+        if(Math.random() > 0.38) { // slightly higher chance for a linear gradient
+            backgroundCSSRule = "linear-gradient(" +
+            generateRandomDegree() + ", " +
+            getHexColor() + " " + getRange(-180, -50) + "% , " +
+            getHexColor() + " " + getRange(50, 180) + "%)";
+        }
+    }
+    return backgroundCSSRule;
+}
+
 function writeRecursiveStyle(complexity) {
     const measuredEffects = [
         "padding",
@@ -195,16 +221,12 @@ function writeRecursiveStyle(complexity) {
         cssString += "div ".repeat(i + 1) + "{\n";
         // set padding/margin
         cssString += "\t" + getRandomArrayItem(measuredEffects) + ": " + cssMeasurement.trim() + ";\n";
-        // set background
-        cssString += "\tbackground-color: " + getHexColor() + ";\n";
-        // set transform
+        cssString += "\tbackground: " + generateBackground() + ";\n";
         cssString += "\ttransform: " + getRandomArrayItem(potentialTransforms) + "(" + transformMeasurement.trim() + ");\n";
-        // set height and width
         cssString += "\theight: " + writeRandomMeasurement() + ";\n";
         cssString += "\twidth: " + writeRandomMeasurement() + ";\n";
-        // set position
         cssString += "\tposition: " + getRandomArrayItem(potentialPositions) + ";\n";
-        // set blend mode
+        // give jart some variance with how divs overlap
         cssString += "\tmix-blend-mode: " + getRandomArrayItem(potentialBlendModes) + ";\n";
         cssString += "}\n";
     }
@@ -213,12 +235,12 @@ function writeRecursiveStyle(complexity) {
 
     const easelElement = document.getElementById("Easel");
     easelElement.style.flexDirection = getRandomArrayItem(["row", "column"]);
-    easelElement.style.transform = "rotate("+getRange(0, 180)+"deg) scale("+Math.random()+")";
+    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(10, 100) * 0.01) + ")";
 }
 
 function setRandomBodyBackground() {
     const easelWrapperElement = document.getElementById("EaselWrapper");
-    easelWrapperElement.style.backgroundColor = getHexColor();
+    easelWrapperElement.style.background = generateBackground();
 }
 
 function createJart(complexity) {
@@ -243,6 +265,6 @@ function createJart(complexity) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    let complexity = getRange(20, 150);
+    let complexity = getRange(33, 250);
     createJart(complexity);
 });
