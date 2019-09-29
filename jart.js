@@ -75,8 +75,13 @@ function writeRecursiveStyle(complexity) {
     for(let i = 0; i < complexity; i++) {
         cssMeasurement = "";
         transformMeasurement = writeRandomMeasurement("deg") + " ";
-        for(let n = 0; n < getRange(1, 3); n++) {
+        const measurementLengthRoll = Math.random();
+        cssMeasurement += writeRandomMeasurement() + " ";
+        if(measurementLengthRoll > 0.33) {
             cssMeasurement += writeRandomMeasurement() + " ";
+        }
+        if(measurementLengthRoll > 0.66) {
+            cssMeasurement += writeRandomMeasurement() + " "; // we'll trim this space later
         }
         cssString += "div ".repeat(i + 1) + "{\n";
         // set padding/margin
@@ -92,32 +97,34 @@ function writeRecursiveStyle(complexity) {
     }
     styleElement.textContent = cssString;
     headElement.appendChild(styleElement);
-    // make the easel have a random flex order and orientation
-    document.getElementById("Easel").style.flexDirection = getRandomArrayItem(["row", "column"]);
-    // make the easel have a random rotation & scale
-    document.getElementById("Easel").style.transform = "rotate("+getRange(0, 180)+"deg) scale("+Math.random()+")";
+
+    const easelElement = document.getElementById("Easel");
+    easelElement.style.flexDirection = getRandomArrayItem(["row", "column"]);
+    easelElement.style.transform = "rotate("+getRange(0, 180)+"deg) scale("+Math.random()+")";
 }
 
 function setRandomBodyBackground() {
-    document.getElementById("EaselWrapper").style.backgroundColor = getRandomHexValue();
+    const easelWrapperElement = document.getElementById("EaselWrapper");
+    easelWrapperElement.style.backgroundColor = getRandomHexValue();
 }
 
-let intervalTimer;
 function createJart(complexity) {
+    let intervalTimer;
+    const easelElement = document.getElementById("Easel");
     if(!complexity) {
         console.warn("No complexity setting... defaulting to 'pretty complex'.");
         complexity = 10;
     }
-    document.getElementById("Easel").classList.remove("fade-in");
-    document.getElementById("Easel").classList.add("fade-out");
+    easelElement.classList.remove("fade-in");
+    easelElement.classList.add("fade-out");
     clearInterval(intervalTimer);
     intervalTimer = setInterval(function() {
-        document.getElementById("Easel").classList.remove("fade-out");
+        easelElement.classList.remove("fade-out");
         clearPreviousArt();
         setRandomBodyBackground();
         writeRecursiveStyle(complexity);
-        addRecursiveDivs(document.getElementById("Easel"), complexity);
-        document.getElementById("Easel").classList.add("fade-in");
+        addRecursiveDivs(easelElement, complexity);
+        easelElement.classList.add("fade-in");
         clearInterval(intervalTimer);
     }, 250); // should match animation time on easel, controlled in the CSS
 }
@@ -125,11 +132,4 @@ function createJart(complexity) {
 document.addEventListener("DOMContentLoaded", function() {
     let complexity = getRange(50, 500);
     createJart(complexity);
-    // reset the style with spacebar
-    document.body.onkeyup = function(e) {
-        if(e.keyCode == 32) {
-            complexity = getRange(50, 500);
-            createJart(complexity);
-        }
-    }
 });
