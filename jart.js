@@ -255,7 +255,7 @@ function writeRecursiveStyle(complexity) {
     easelElement.style.flexDirection = getRandomArrayItem(["row", "column"]);
     easelElement.style.alignItems = getRandomArrayItem(["center", "flex-start", "flex-end"]);
     easelElement.style.justifyContent = getRandomArrayItem(["center", "flex-start", "flex-end"]);
-    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(40, 130) * 0.01) + ")";
+    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(10, 130) * 0.01) + ")";
 }
 
 function setRandomBodyBackground() {
