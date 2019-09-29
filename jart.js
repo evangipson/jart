@@ -224,6 +224,7 @@ function writeRecursiveStyle(complexity) {
     let cssString = "";
     let cssMeasurement;
     let transformMeasurement;
+    const blendMode = getRandomArrayItem(potentialBlendModes);
     for(let i = 0; i < complexity; i++) {
         cssMeasurement = "";
         transformMeasurement = writeRandomMeasurement(0, 50, "deg") + " ";
@@ -244,7 +245,7 @@ function writeRecursiveStyle(complexity) {
         cssString += "\theight: " + writeRandomMeasurement() + ";\n";
         cssString += "\twidth: " + writeRandomMeasurement() + ";\n";
         // give jart some variance with how divs overlap
-        cssString += "\tmix-blend-mode: " + getRandomArrayItem(potentialBlendModes) + ";\n";
+        cssString += "\tmix-blend-mode: " + blendMode + ";\n";
         cssString += "}\n";
     }
     styleElement.textContent = cssString;
@@ -254,7 +255,7 @@ function writeRecursiveStyle(complexity) {
     easelElement.style.flexDirection = getRandomArrayItem(["row", "column"]);
     easelElement.style.alignItems = getRandomArrayItem(["center", "flex-start", "flex-end"]);
     easelElement.style.justifyContent = getRandomArrayItem(["center", "flex-start", "flex-end"]);
-    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(30, 100) * 0.01) + ")";
+    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(40, 130) * 0.01) + ")";
 }
 
 function setRandomBodyBackground() {
