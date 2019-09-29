@@ -166,7 +166,6 @@ function generateBackground() {
     let backgroundCSSRule = getHexColor();
     if(Math.random() > gradientIndex) {
         backgroundCSSRule = "radial-gradient(" +
-                            generateRandomDegree() + ", " +
                             getHexColor() + " " + getRange(-180, -50) + "% , " +
                             getHexColor() + " " + getRange(50, 180) + "%)";
         if(Math.random() > 0.38) { // slightly higher chance for a linear gradient
@@ -192,7 +191,7 @@ function generateBorderRadius() {
         }
     }
     // small probability to return a square
-    if(Math.random() > 0.8) {
+    if(Math.random() > 0.85) {
         borderRadiusCSSRule = "0";
     }
     return borderRadiusCSSRule.trim();
@@ -206,10 +205,6 @@ function writeRecursiveStyle(complexity) {
     const potentialTransforms = [
         "rotate",
         "skew"
-    ];
-    const potentialPositions = [
-        "absolute",
-        "relative"
     ];
     const potentialBlendModes = [
         "normal",
@@ -248,7 +243,6 @@ function writeRecursiveStyle(complexity) {
         cssString += "\ttransform: " + getRandomArrayItem(potentialTransforms) + "(" + transformMeasurement.trim() + ");\n";
         cssString += "\theight: " + writeRandomMeasurement() + ";\n";
         cssString += "\twidth: " + writeRandomMeasurement() + ";\n";
-        cssString += "\tposition: " + getRandomArrayItem(potentialPositions) + ";\n";
         // give jart some variance with how divs overlap
         cssString += "\tmix-blend-mode: " + getRandomArrayItem(potentialBlendModes) + ";\n";
         cssString += "}\n";
@@ -258,7 +252,9 @@ function writeRecursiveStyle(complexity) {
 
     const easelElement = document.getElementById("Easel");
     easelElement.style.flexDirection = getRandomArrayItem(["row", "column"]);
-    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(10, 100) * 0.01) + ")";
+    easelElement.style.alignItems = getRandomArrayItem(["center", "flex-start", "flex-end"]);
+    easelElement.style.justifyContent = getRandomArrayItem(["center", "flex-start", "flex-end"]);
+    easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(30, 100) * 0.01) + ")";
 }
 
 function setRandomBodyBackground() {
@@ -288,6 +284,6 @@ function createJart(complexity) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    let complexity = getRange(5, 65);
+    let complexity = getRange(3, 40);
     createJart(complexity);
 });

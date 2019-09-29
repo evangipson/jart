@@ -1,5 +1,7 @@
-body, .easel-wrapper {
+.easel, div, body, .easel-wrapper {
     display: flex;
+}
+body, .easel-wrapper {
     padding: 0;
     margin: 0;
     overflow: hidden;
