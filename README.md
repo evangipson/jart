@@ -3,6 +3,15 @@ jart will try it's hardest to generate meaningful art, using javascript.
 
 jart generates art by layering different shapes, then generating rules for what those shapes look like at any given depth, then applies rotations, scales, and skews to generate the final product.
 
+Here are some of my favorite jarts:
+![Abstract Jart 1](https://evangipson.com/jart/jart-02.png)
+
+![Abstract Jart 2](https://evangipson.com/jart/jart-03.png)
+
+![Abstract Jart 3](https://evangipson.com/jart/jart-04.png)
+
+![Abstract Jart 4](https://evangipson.com/jart/jart-05.png)
+
 | jart Readme |
 |---|
 | [Built With](#built-with) |
