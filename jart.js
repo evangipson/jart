@@ -176,7 +176,7 @@ function randomBrightnessVariation(hexColor, percent = 10) {
     ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1));
 
     // before returning, do a check to make sure we absoutely have 6 letters in our hex code.
-    return newColorHex;
+    return "#" + newColorHex;
 }
 /**
  * returns an integer in _min_ to _max_ range,
