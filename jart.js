@@ -242,8 +242,8 @@ function writeRecursiveStyle(complexity) {
         cssString += "\tborder-radius: " + generateBorderRadius() + ";\n";
         cssString += "\tbackground: " + generateBackground() + ";\n";
         cssString += "\ttransform: " + getRandomArrayItem(potentialTransforms) + "(" + transformMeasurement.trim() + ");\n";
-        cssString += "\theight: " + writeRandomMeasurement() + ";\n";
-        cssString += "\twidth: " + writeRandomMeasurement() + ";\n";
+        cssString += "\theight: " + writeRandomMeasurement(5, 100) + ";\n";
+        cssString += "\twidth: " + writeRandomMeasurement(5, 100) + ";\n";
         // give jart some variance with how divs overlap
         cssString += "\tmix-blend-mode: " + blendMode + ";\n";
         cssString += "}\n";
