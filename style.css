@@ -4,7 +4,7 @@ body, .easel-wrapper {
     margin: 0;
     overflow: hidden;
 }
-html, body {
+html, body, .easel {
     height: 100%;
     width: 100%;
 }

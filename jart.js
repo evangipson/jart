@@ -38,7 +38,7 @@ function writeRandomMeasurement(measurementUnit) {
     if(measurementUnit) {
         unit = measurementUnit;
     }
-    return getRange() + unit;
+    return getRange(33, 66) + unit;
 }
 
 /* this is inspired by a function from: https://stackoverflow.com/questions/21935299/removing-style-tags-from-head */
