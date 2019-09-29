@@ -39,9 +39,9 @@ function randomBrightnessVariation(hexColor, percent = 10) {
         b = parseInt(hexColor.substr(4, 2), 16);
 
     return '#' +
-       ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+       (((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
        ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
-       ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
+       ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1)).toString(16);
 }
 
 let palletteIndex; // so we can set the tone of the jart
@@ -120,7 +120,11 @@ function getHexColor() {
     return randomBrightnessVariation(possibleColorCombos[palletteIndex][randomPalletteProperty], getRange(-20, 20));
 }
 
-function writeRandomMeasurement(measurementUnit) {
+/**
+ * returns rem or percentage by default.
+ * unit can be overriden.
+ */
+function writeRandomMeasurement(min = 1, max = 100, measurementUnit) {
     // decide whether to send percentage or rem
     let unit;
     if(Math.random() > 0.5) {
@@ -132,7 +136,7 @@ function writeRandomMeasurement(measurementUnit) {
     if(measurementUnit) {
         unit = measurementUnit;
     }
-    return getRange(33, 66) + unit;
+    return getRange(min, max) + unit;
 }
 
 /* this is inspired by a function from: https://stackoverflow.com/questions/21935299/removing-style-tags-from-head */
@@ -175,11 +179,29 @@ function generateBackground() {
     return backgroundCSSRule;
 }
 
+/** will return 1-4 numbers with a space inbetween each */
+function generateBorderRadius() {
+    let borderRadiusCSSRule = writeRandomMeasurement() + " ";
+    if(Math.random() > 0.5) {
+        borderRadiusCSSRule += writeRandomMeasurement() + " ";
+        if(Math.random() > 0.5) {
+            borderRadiusCSSRule += writeRandomMeasurement() + " ";
+            if(Math.random() > 0.5) {
+                borderRadiusCSSRule += writeRandomMeasurement() + " ";
+            }
+        }
+    }
+    // small probability to return a square
+    if(Math.random() > 0.8) {
+        borderRadiusCSSRule = "0";
+    }
+    return borderRadiusCSSRule.trim();
+}
+
 function writeRecursiveStyle(complexity) {
     const measuredEffects = [
         "padding",
-        "margin",
-        "border-radius"
+        "margin"
     ];
     const potentialTransforms = [
         "rotate",
@@ -209,18 +231,19 @@ function writeRecursiveStyle(complexity) {
     let transformMeasurement;
     for(let i = 0; i < complexity; i++) {
         cssMeasurement = "";
-        transformMeasurement = writeRandomMeasurement("deg") + " ";
+        transformMeasurement = writeRandomMeasurement(0, 50, "deg") + " ";
         const measurementLengthRoll = Math.random();
-        cssMeasurement += writeRandomMeasurement() + " ";
+        cssMeasurement += writeRandomMeasurement(1, 10) + " ";
         if(measurementLengthRoll > 0.33) {
-            cssMeasurement += writeRandomMeasurement() + " ";
+            cssMeasurement += writeRandomMeasurement(1, 10) + " ";
         }
         if(measurementLengthRoll > 0.66) {
-            cssMeasurement += writeRandomMeasurement() + " "; // we'll trim this space later
+            cssMeasurement += writeRandomMeasurement(1, 10) + " "; // we'll trim this space later
         }
         cssString += "div ".repeat(i + 1) + "{\n";
         // set padding/margin
         cssString += "\t" + getRandomArrayItem(measuredEffects) + ": " + cssMeasurement.trim() + ";\n";
+        cssString += "\tborder-radius: " + generateBorderRadius() + ";\n";
         cssString += "\tbackground: " + generateBackground() + ";\n";
         cssString += "\ttransform: " + getRandomArrayItem(potentialTransforms) + "(" + transformMeasurement.trim() + ");\n";
         cssString += "\theight: " + writeRandomMeasurement() + ";\n";
@@ -265,6 +288,6 @@ function createJart(complexity) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    let complexity = getRange(33, 250);
+    let complexity = getRange(5, 65);
     createJart(complexity);
 });
