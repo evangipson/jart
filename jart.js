@@ -130,6 +130,6 @@ function createJart(complexity) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    let complexity = getRange(50, 500);
+    let complexity = getRange(20, 150);
     createJart(complexity);
 });
