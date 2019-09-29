@@ -120,13 +120,14 @@ const potentialBlendModes = [
 /* Utility functions */
 /* ================= */
 /**
- * will add <div>s to a _parentElement_,
- * _complexity_ amount of times.
+ * will add <jartlet>s to a _parentElement_,
+ * _complexity_ amount of times. the base of
+ * any jart!
  */
-function addRecursiveDivs(parentElement, complexity) {
+function addJartlets(parentElement, complexity) {
     let newElement;
     for (let i = 0; i < complexity; i++) {
-        newElement = document.createElement("div");
+        newElement = document.createElement("jartlet");
         if(Math.random() > 0.15) {
             parentElement.appendChild(newElement);
         }
@@ -200,7 +201,7 @@ function writeRandomMeasurement(min = 1, max = 100, measurementUnit) {
 }
 /**
  * will clear all elements of a given element tag name.
- * example: clearAllElements(div) will remove all divs on page.
+ * example: clearAllElements(foo) will remove all <foo>s on page.
  * this is inspired by a function from:
  * https://stackoverflow.com/questions/21935299/removing-style-tags-from-head */
 function clearAllElements(elementType) {
@@ -276,12 +277,12 @@ function getHexColor() {
     return randomBrightnessVariation(possibleColorCombos[palletteIndex][randomPalletteProperty], getRange(-20, 20));
 }
 /**
- * wipes away all previous jart and style associated
- * with said jart.
+ * wipes away all previous jartlets and
+ * style associated with said jartlets.
  */
-function clearPreviousArt() {
+function clearAllJartlets() {
     clearAllElements("style");
-    clearAllElements("div");
+    clearAllElements("jartlet");
 }
 /**
  * sets a random color to the back of the canvas.
@@ -314,7 +315,7 @@ function writeRecursiveStyle(complexity) {
         if(measurementLengthRoll > 0.66) {
             cssMeasurement += writeRandomMeasurement(1, 10) + " "; // we'll trim this space later
         }
-        cssString += "div ".repeat(i + 1) + "{\n";
+        cssString += "jartlet ".repeat(i + 1) + "{\n";
         // set padding/margin
         cssString += "\t" + getRandomArrayItem(measuredEffects) + ": " + cssMeasurement.trim() + ";\n";
         cssString += "\tborder-radius: " + generateBorderRadius() + ";\n";
@@ -322,7 +323,7 @@ function writeRecursiveStyle(complexity) {
         cssString += "\ttransform: " + getRandomArrayItem(potentialTransforms) + "(" + transformMeasurement.trim() + ");\n";
         cssString += "\theight: " + writeRandomMeasurement(5, 100) + ";\n";
         cssString += "\twidth: " + writeRandomMeasurement(5, 100) + ";\n";
-        // give jart some variance with how divs overlap
+        // give jartlets some variance with how other jartlets overlap
         cssString += "\tmix-blend-mode: " + blendMode + ";\n";
         cssString += "}\n";
     }
@@ -336,7 +337,7 @@ function writeRecursiveStyle(complexity) {
     easelElement.style.transform = "rotate(" + generateRandomDegree() + ") scale(" + (getRange(10, 130) * 0.01) + ")";
 }
 /**
- * will create a jart. _complexity_ defaults to 10,
+ * will create jart. _complexity_ defaults to 10,
  * but can be overrideen. more complexity means
  * more shapes in the jart!
  */
@@ -352,10 +353,10 @@ function createJart(complexity) {
     clearInterval(intervalTimer);
     intervalTimer = setInterval(function() {
         easelElement.classList.remove("fade-out");
-        clearPreviousArt();
+        clearAllJartlets();
         setRandomBodyBackground();
         writeRecursiveStyle(complexity);
-        addRecursiveDivs(easelElement, complexity);
+        addJartlets(easelElement, complexity);
         easelElement.classList.add("fade-in");
         clearInterval(intervalTimer);
     }, 250); // should match animation time on easel, controlled in the CSS
