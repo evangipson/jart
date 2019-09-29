@@ -166,12 +166,12 @@ function generateBackground() {
     let backgroundCSSRule = getHexColor();
     if(Math.random() > gradientIndex) {
         backgroundCSSRule = "radial-gradient(" +
-                            getHexColor() + " " + getRange(-180, -50) + "% , " +
+                            getHexColor() + " " + getRange(-180, -50) + "%, " +
                             getHexColor() + " " + getRange(50, 180) + "%)";
         if(Math.random() > 0.38) { // slightly higher chance for a linear gradient
             backgroundCSSRule = "linear-gradient(" +
             generateRandomDegree() + ", " +
-            getHexColor() + " " + getRange(-180, -50) + "% , " +
+            getHexColor() + " " + getRange(-180, -50) + "%, " +
             getHexColor() + " " + getRange(50, 180) + "%)";
         }
     }
