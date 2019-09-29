@@ -111,6 +111,27 @@ function getHexColor() {
             "fourthtiary": "#119DA4",
             "fifthtiary": "#19647E",
         },
+        {
+            "primary": "#FFF07C",
+            "secondary": "#80FF72",
+            "tertiary": "#7EE8FA",
+            "fourthtiary": "#EEC0C6",
+            "fifthtiary": "#E58C8A",
+        },
+        {
+            "primary": "#6FA8CE",
+            "secondary": "#B2BCAA",
+            "tertiary": "#838E83",
+            "fourthtiary": "#6C6061",
+            "fifthtiary": "#64403E",
+        },
+        {
+            "primary": "#068D9D",
+            "secondary": "#53599A",
+            "tertiary": "#6D9DC5",
+            "fourthtiary": "#80DED9",
+            "fifthtiary": "#AEECEF",
+        },
     ];
     /* If we haven't landed on a pallette yet, let's set it. */
     if(!palletteIndex) {
