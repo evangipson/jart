@@ -1,0 +1,45 @@
+body, .easel-wrapper {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-family: 'Rubik', sans-serif;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.easel-wrapper {
+    width: 99%;
+    height: 25rem;
+    margin-top: 3rem;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    border: groove 0.25rem #222;
+}
+.easel {
+    transition: opacity 0.25s linear,
+                background-color 0.25s linear;
+}
+.fade-out {
+    opacity: 0;
+}
+.fade-in {
+    opacity: 1.0;
+}
+@media screen and (min-width: 768px) {
+    body {
+        padding: 0;
+        align-items: center;
+    }
+    .easel-wrapper {
+        width: 66%;
+        height: 60%;
+    }
+}
